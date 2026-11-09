@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Untuk princess fadiya yang cantikk</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#2a0f26;--bg2:#12060f;--rose:#ff8fa8;--peach:#ffd1c2;--cream:#fff3ea;--soft:rgba(255,243,234,.72);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,var(--bg1),var(--bg2));color:var(--cream);font-family:'Fraunces',Georgia,serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.s{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 28px;opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s;z-index:2}
+.s.on{opacity:1;visibility:visible}
+.tiny{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);margin-bottom:18px}
+h1{font-weight:600;font-size:40px;line-height:1.1}
+h1 em,h2 em{font-style:italic;font-weight:400;color:var(--peach)}
+h2{font-weight:400;font-size:30px;line-height:1.2}
+p.sub{margin-top:16px;color:var(--soft);font-size:15px;line-height:1.6;font-style:italic}
+.btn{margin-top:34px;padding:14px 34px;border-radius:40px;border:1.5px solid var(--rose);background:rgba(255,143,168,.12);color:var(--cream);font:600 14px 'Fraunces',serif;letter-spacing:.12em;transition:transform .2s,background .3s}
+.btn:active{transform:scale(.94);background:rgba(255,143,168,.3)}
+.hand{font-family:'Caveat',cursive;font-size:26px;color:var(--peach)}
+#cd{font-size:120px;font-weight:600;color:var(--rose);animation:pop 1s infinite}
+@keyframes pop{0%{transform:scale(.4);opacity:0}30%{transform:scale(1.05);opacity:1}100%{transform:scale(1);opacity:.9}}
+.age{font-size:92px;font-weight:600;color:var(--rose);line-height:1;margin:6px 0}
+.dt{color:var(--soft);font-size:13px;letter-spacing:.18em}
+/* foto */
+#stack{position:relative;width:min(74vw,300px);height:min(96vw,390px);margin-top:10px}
+.pc{position:absolute;inset:0;background:var(--cream);padding:12px 12px 52px;border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.3,.9,.3,1),opacity .6s;color:#3b1d33}
+.pc .ph{width:100%;height:100%;border-radius:3px;background:linear-gradient(145deg,#ffb4c4,#c77dff 70%,#7b2d8e);display:flex;align-items:center;justify-content:center;font-size:54px;overflow:hidden}
+.pc img{width:100%;height:100%;object-fit:cover}
+.pc .cap{position:absolute;left:0;right:0;bottom:12px;font-family:'Caveat',cursive;font-size:24px}
+/* surat */
+#ln p{font-size:19px;line-height:1.7;margin:10px 0;opacity:0;transform:translateY(12px);transition:all 1s}
+#ln p.v{opacity:1;transform:none}
+/* kue */
+.cake{width:200px;height:210px}
+.fl{transform-origin:50% 100%;animation:fl .5s infinite alternate;transition:opacity .4s}
+@keyframes fl{to{transform:scale(1.15,.9) rotate(4deg)}}
+.out .fl{opacity:0}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<section class="s on" id="s0">
+  <div class="tiny">spesial ulang tahun hari ini</div>
+  <h1>ada kejutan kecil dari pangeran ganteng.<br><em>khusus untuk adek sayangg</em></h1>
+  <p class="sub">Siapkan senyum terbaikmu, ya.</p>
+  <button class="btn" onclick="go(1)">BUKA KEJUTAN</button>
+</section>
+
+<section class="s" id="s1"><div id="cd">3</div></section>
+
+<section class="s" id="s2">
+  <div class="tiny">10 November 2026</div>
+  <h2>selamat ulang tahun,</h2>
+  <h1 style="margin-top:8px"><em>cintaku</em><br>sayaangg</h1>
+  <div class="age" id="age">20</div>
+  <div class="dt">LAHIR 10 NOVEMBER 2005</div>
+  <button class="btn" onclick="go(3)">LANJUT</button>
+</section>
+
+<section class="s" id="s3">
+  <div class="tiny">potret kenangan</div>
+  <div id="stack"></div>
+  <p class="sub" style="margin-top:22px;font-size:13px">ketuk foto untuk melihat yang berikutnya</p>
+  <button class="btn" style="margin-top:16px" onclick="go(4)">LANJUT</button>
+</section>
+
+<section class="s" id="s4">
+  <div class="tiny">sebuah pesan</div>
+  <div id="ln"></div>
+  <button class="btn" id="b4" style="opacity:0;pointer-events:none;transition:opacity 1s" onclick="go(5)">LANJUT</button>
+</section>
+
+<section class="s" id="s5" id="cakes">
+  <div class="tiny">Buat permohonan</div>
+  <svg class="cake" viewBox="0 0 200 210" id="cakeSvg">
+    <rect x="25" y="120" width="150" height="70" rx="12" fill="#ff8fa8"/>
+    <path d="M25 140q18 18 37 0t38 0 38 0 37 0v-14a12 12 0 0 0-12-12H37a12 12 0 0 0-12 12z" fill="#fff3ea"/>
+    <rect x="15" y="186" width="170" height="10" rx="5" fill="#ffd1c2"/>
+    <g fill="#ffd1c2"><rect x="62" y="84" width="8" height="30" rx="3"/><rect x="96" y="76" width="8" height="38" rx="3"/><rect x="130" y="84" width="8" height="30" rx="3"/></g>
+    <g class="fl" fill="#ffc83d"><path d="M66 60c-8 10-6 20 0 22 6-2 8-12 0-22z"/></g>
+    <g class="fl" fill="#ffc83d" style="animation-delay:.15s"><path d="M100 52c-8 10-6 20 0 22 6-2 8-12 0-22z"/></g>
+    <g class="fl" fill="#ffc83d" style="animation-delay:.3s"><path d="M134 60c-8 10-6 20 0 22 6-2 8-12 0-22z"/></g>
+  </svg>
+  <p class="sub">pejamkan mata, ucapkan satu harapan,<br>"jangan lupa doain mass juga whehehe"<br>lalu tiup lilinnya.</p>
+  <button class="btn" id="blow" onclick="blow()">TIUP LILIN</button>
+</section>
+
+<section class="s" id="s6">
+  <div class="tiny">dengan sepenuh hati</div>
+  <h1>selamatt ulang tahunn yang ke 21,<br><em>sayaanggkuu</em></h1>
+  <p class="hand" style="margin-top:20px">semoga semua yang baik<br>selalu menujumu ♡</p>
+  <button class="btn" onclick="go(0)">ULANGI DARI AWAL</button>
+</section>
+
+<script>
+/* ====== BAGIAN YANG BOLEH KAMU UBAH ====== */
+// Foto: taruh file di folder "foto" dengan nama 1.jpg, 2.jpg, dst. Kalau file belum ada, muncul kotak warna.
+const PHOTOS=[
+  {src:"foto/1.jpg",cap:"princess yang sangat pintar"},
+  {src:"foto/2.jpg",cap:"yang mempunyai pangeran yang ganteng"},
+  {src:"foto/3.jpg",cap:"selalu cantik, baik"},
+  {src:"foto/4.jpg",cap:"dan satu lagi, pengertian."}
+];
+// Pesan: satu baris per kalimat
+const MSG=[
+  "di hari spesial ini",
+  "mass ingin berterimakasih atas semua kebahagiaan",
+  "yang selalu adee usahakan",
+  "untuk adee sendiri, keluarga, maupun mass",
+  "terima kasih sayaangg",
+  "selamat ulang tahun cintaa"
+];
+/* ======================================== */
+
+const $=id=>document.getElementById(id);
+let cur=0,timers=[];
+function go(n){
+  timers.forEach(clearTimeout);timers=[];
+  document.querySelectorAll('.s').forEach((e,i)=>e.classList.toggle('on',i===n));
+  cur=n;
+  if(n===1){let c=3;$('cd').textContent=c;const t=setInterval(()=>{c--;if(c<1){clearInterval(t);go(2)}else $('cd').textContent=c},1000);timers.push(t)}
+  if(n===2){confetti(90);let a=20;$('age').textContent=a;timers.push(setTimeout(()=>{$('age').textContent=21;confetti(60)},1500))}
+  if(n===3)buildStack();
+  if(n===4)letter();
+  if(n===5){$('cakeSvg').classList.remove('out');$('blow').style.display=''}
+  if(n===6)confetti(160);
+}
+/* foto bertumpuk */
+let order=[];
+function buildStack(){
+  const st=$('stack');st.innerHTML='';order=[];
+  PHOTOS.forEach((p,i)=>{
+    const d=document.createElement('div');d.className='pc';
+    d.innerHTML=(p.src?`<div class="ph"><img src="${p.src}" alt="" onerror="this.parentNode.textContent='🌸'"></div>`:`<div class="ph">🌸</div>`)+`<div class="cap">${p.cap}</div>`;
+    d.onclick=next;st.appendChild(d);order.push(d)});
+  layout();
+}
+function layout(){
+  order.forEach((d,i)=>{const r=((i*37)%11-5)*0.9;d.style.zIndex=order.length-i;
+    d.style.transform=`translateY(${i*7}px) rotate(${i?r:0}deg) scale(${1-i*.035})`;d.style.opacity=i>3?0:1})
+}
+function next(){
+  const top=order.shift();top.style.transform='translateX(130%) rotate(24deg)';top.style.opacity=0;
+  setTimeout(()=>{order.push(top);layout()},420);
+}
+/* surat */
+function letter(){
+  const ln=$('ln');ln.innerHTML='';$('b4').style.opacity=0;$('b4').style.pointerEvents='none';
+  MSG.forEach((m,i)=>{const p=document.createElement('p');p.textContent=m;ln.appendChild(p);
+    timers.push(setTimeout(()=>p.classList.add('v'),600+i*1500))});
+  timers.push(setTimeout(()=>{$('b4').style.opacity=1;$('b4').style.pointerEvents='auto'},600+MSG.length*1500))
+}
+function blow(){$('cakeSvg').classList.add('out');$('blow').style.display='none';confetti(140);
+  timers.push(setTimeout(()=>go(6),2600))}
+/* kelopak + konfeti */
+const cv=$('cv'),cx=cv.getContext('2d');let W,H,P=[];
+function rs(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio}
+addEventListener('resize',rs);rs();
+const COL=['#ff8fa8','#ffd1c2','#ffc83d','#c77dff','#fff3ea'];
+function petal(burst){const d=devicePixelRatio;return{x:burst?W/2:Math.random()*W,y:burst?H*.45:-20*d,vx:burst?(Math.random()-.5)*14*d:(Math.random()-.5)*.8*d,vy:burst?(-Math.random()*13-3)*d:(Math.random()*1+.6)*d,s:(burst?4+Math.random()*5:6+Math.random()*7)*d,r:Math.random()*6,vr:(Math.random()-.5)*.15,c:burst?COL[Math.random()*5|0]:'#ff8fa8',a:burst?1:.5,g:burst?.28*d:0,burst}}
+function confetti(n){for(let i=0;i<n;i++)P.push(petal(true))}
+(function loop(){
+  cx.clearRect(0,0,W,H);
+  if(Math.random()<.12)P.push(petal(false));
+  P=P.filter(p=>p.y<H+30);
+  P.forEach(p=>{p.vy+=p.g;p.x+=p.vx+(p.burst?0:Math.sin(p.y/60)*.6);p.y+=p.vy;p.r+=p.vr;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=p.a;cx.fillStyle=p.c;
+    cx.beginPath();cx.ellipse(0,0,p.s,p.s*(p.burst?.5:.65),0,0,6.3);cx.fill();cx.restore()});
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+                                                                  </html>
